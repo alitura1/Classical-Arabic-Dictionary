@@ -1,72 +1,121 @@
 # Lisan ul Arab API
 
-Arabic dictionary API built from a large JSON dataset.
+Public Arabic Dictionary API built from the famous Lisan ul Arab lexicon.
 
 ## Features
 
-- Arabic normalization
-- Root search
-- Full text search
-- SQLite optimized
-- REST API
-- Ready for GitHub + Railway/Render deploy
+* Arabic word search
+* Root-based lookup
+* Arabic normalization
+* SQLite optimized
+* Fast API responses
+* REST API
+* Open source
 
-## Install
+---
+
+# Installation
 
 ```bash
 npm install
 ```
 
-## Add Dataset
+---
 
-Put your JSON file as:
+# Add Dataset
+
+Place your JSON file here:
 
 ```txt
 data/lisanularab.json
 ```
 
-## Build Database
+---
+
+# Build Database
 
 ```bash
 npm run build-db
 ```
 
-## Run
+---
+
+# Start API
 
 ```bash
 npm start
 ```
 
-## Endpoints
+---
 
-### Search
+# API Endpoints
 
-```txt
+## Search
+
+```http
 GET /api/search?q=علم
 ```
 
-### Word
+Example:
 
-```txt
-GET /api/word/أبد
+```json
+{
+  "query": "علم",
+  "count": 1,
+  "results": []
+}
 ```
 
-### ID
+---
 
-```txt
+## Exact Word
+
+```http
+GET /api/word/كتب
+```
+
+---
+
+## Entry by ID
+
+```http
 GET /api/id/9416
 ```
 
-### Random
+---
 
-```txt
+## Random Entry
+
+```http
 GET /api/random
 ```
 
-## Deploy
+---
 
-Works on:
-- Railway
-- Render
-- VPS
-- Docker
+# Arabic Normalization
+
+The API automatically normalizes:
+
+* أ إ آ → ا
+* ى → ي
+* ة → ه
+* Harakat removed
+
+This improves Arabic search quality.
+
+---
+
+# Deploy
+
+Works perfectly with:
+
+* Railway
+* Render
+* VPS
+* Docker
+
+---
+
+# License
+
+MIT
