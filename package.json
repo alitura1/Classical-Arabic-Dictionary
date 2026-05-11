@@ -1,0 +1,16 @@
+{
+  "name": "lisanul-arab-api",
+  "version": "1.0.0",
+  "description": "Lisan ul Arab Arabic Dictionary API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build-db": "node scripts/build-db.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.7.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "morgan": "^1.10.0"
+  }
+}
