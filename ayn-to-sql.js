@@ -9,6 +9,8 @@
  * Yükle: wrangler d1 execute kitabul-ayn --file=ayn_import.sql --remote
  */
 const fs = require('fs');
+// Normalize + kok cikarimi TEK KAYNAK — bkz. kok-cikar.js
+const { normalizeArabic, extractRoot } = require('./kok-cikar');
 const path = require('path');
 
 const JSON_PATH = path.join(__dirname, 'data', 'kitabulayn.json');
@@ -20,33 +22,10 @@ if (!fs.existsSync(JSON_PATH)) {
   process.exit(1);
 }
 
-function normalizeArabic(text = '') {
-  return text
-    .replace(/[إأآ]/g, 'ا')
-    .replace(/ى/g, 'ي')
-    .replace(/ة/g, 'ه')
-    .replace(/[ًٌٍَُِّْـ]/g, '')
-    .trim();
-}
 
 function escapeSql(str) {
   if (str === null || str === undefined) return 'NULL';
   return "'" + String(str).replace(/'/g, "''") + "'";
-}
-
-// Headword'den klasik triliteral kök tahmini.
-// "التصليب" → "تصل" değil — biz "ال" prefix'ini sıyırıp ilk 3 harfi alıyoruz.
-// Ama bu Ayn için aslında zaten kökü gösterir (headword'ler genelde 3-harfli kök).
-// Multi-word headword'lerde sadece ilk kelimeyi kullan.
-function extractRoot(word) {
-  if (!word) return null;
-  const first = String(word).split(/\s+/)[0];
-  const norm  = normalizeArabic(first);
-  const stripped = norm.replace(/^ال/, '').replace(/[ءؤئ]/g, '');
-  const chars = [...stripped];
-  if (chars.length === 0) return null;
-  if (chars.length <= 3) return chars.join('');
-  return chars.slice(0, 3).join('');
 }
 
 console.log('JSON okunuyor...');
